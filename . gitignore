@@ -1,0 +1,5 @@
+# .gitignore
+.env
+api-keys.js
+node_modules/
+*.log
