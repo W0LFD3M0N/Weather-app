@@ -4,6 +4,11 @@ async function getWeather() {
   const apiKey = process.env.OPENWEATHER_API_KEY; // For Netlify
 // OR for local testing:
 const apiKey = '8fb5d49404c57c5b1ebfe460c7fc7457' || process.env.OPENWEATHER_API_KEY;
+  if (!localStorage.getItem('weatherApiKey')) {
+  const key = prompt("Enter your OpenWeatherMap API key:");
+  localStorage.setItem('weatherApiKey', key);
+}
+const apiKey = localStorage.getItem('weatherApiKey');
 
   if (!city) {
     resultDiv.innerHTML = 'Please enter a city name.';
@@ -71,9 +76,5 @@ recognition.start();
 // Usage: 
 // const icon = getIcon(data.weather[0].icon);
   // Store the key in localStorage after first entry
-if (!localStorage.getItem('weatherApiKey')) {
-  const key = prompt("Enter your OpenWeatherMap API key:");
-  localStorage.setItem('weatherApiKey', key);
-}
-const apiKey = localStorage.getItem('weatherApiKey');
+
 }
