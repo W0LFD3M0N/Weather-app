@@ -43,4 +43,35 @@ recognition.onresult = (event) => {
   fetchWeather(city);
 };
 recognition.start();
+  function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`)
+          .then(response => response.json())
+          .then(data => displayWeather(data));
+      },
+      (error) => alert("Location access denied. Search manually.")
+    );
+  }
+}
+  window.addEventListener('load', getLocation);
+  function getIcon(iconCode) {
+  const iconMap = {
+    "01d": "☀️",
+    "01n": "🌙",
+    "02d": "⛅",
+    // Add more mappings (or use an icon library like Font Awesome)
+  };
+  return iconMap[iconCode] || "🌈";
+}
+// Usage: 
+// const icon = getIcon(data.weather[0].icon);
+  // Store the key in localStorage after first entry
+if (!localStorage.getItem('weatherApiKey')) {
+  const key = prompt("Enter your OpenWeatherMap API key:");
+  localStorage.setItem('weatherApiKey', key);
+}
+const apiKey = localStorage.getItem('weatherApiKey');
 }
