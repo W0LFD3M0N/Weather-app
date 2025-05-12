@@ -28,4 +28,19 @@ async function getWeather() {
   } catch (error) {
     resultDiv.innerHTML = 'Failed to fetch weather data.';
   }
+const iconMap = {
+  "01d": "☀️", // Sunny
+  "01n": "🌙", // Clear night
+  // Add more mappings
+};
+navigator.geolocation.getCurrentPosition((position) => {
+  const { latitude, longitude } = position.coords;
+  fetchWeatherByCoords(latitude, longitude);
+});
+const recognition = new webkitSpeechRecognition();
+recognition.onresult = (event) => {
+  const city = event.results[0][0].transcript;
+  fetchWeather(city);
+};
+recognition.start();
 }
