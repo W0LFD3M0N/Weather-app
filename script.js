@@ -1,7 +1,9 @@
 async function getWeather() {
   const city = document.getElementById('cityInput').value.trim();
   const resultDiv = document.getElementById('weatherResult');
-  const apiKey = 'PASTE_YOUR_KEY_HERE'; // Replace with your real API key from OpenWeatherMap
+  const apiKey = process.env.OPENWEATHER_API_KEY; // For Netlify
+// OR for local testing:
+const apiKey = '8fb5d49404c57c5b1ebfe460c7fc7457' || process.env.OPENWEATHER_API_KEY;
 
   if (!city) {
     resultDiv.innerHTML = 'Please enter a city name.';
