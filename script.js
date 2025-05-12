@@ -79,5 +79,14 @@ recognition.start();
 // Usage: 
 // const icon = getIcon(data.weather[0].icon);
   // Store the key in localStorage after first entry
-
+function startVoiceSearch() {
+  const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+  recognition.lang = 'en-US';
+  recognition.onresult = (event) => {
+    const city = event.results[0][0].transcript;
+    fetchWeather(city);
+  };
+  recognition.start();
+}
+// Add a button: <button onclick="startVoiceSearch()">🎤 Speak</button>
 }
