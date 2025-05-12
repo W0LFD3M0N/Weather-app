@@ -35,6 +35,9 @@ const apiKey = localStorage.getItem('weatherApiKey');
   } catch (error) {
     resultDiv.innerHTML = 'Failed to fetch weather data.';
   }
+if (response.status === 404) {
+  alert("City not found. Try another name!");
+}
 const iconMap = {
   "01d": "☀️", // Sunny
   "01n": "🌙", // Clear night
